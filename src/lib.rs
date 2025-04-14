@@ -1,5 +1,23 @@
-use proc_macro::TokenStream;
+//! This crate provides 3 macros for handling integers with metric suffixes.
+//!
+//! The prefix 'K' 'M' 'G' 'T' 'P' 'E' 'Z' 'Y' 'R' 'Q' are supported and are case sensitive.
+//! If the prefix is followed by an 'i' the input will be interpreted as a binary representation "Kibi", "Mebi" etc.
+//!
+//! If no suffix is given the original value is returned unchanged.
+//!
+//! Three macros are provided, [metric] parses normally, [bin] always returns as if a binary suffix was specified, [deci] returns a value as if a a decimal value was specified
+//!
+//! ```
+//! extern crate suffix;
+//!
+//! assert_eq!(suffix::metric!(1K),1000);
+//! assert_eq!(suffix::metric!(1Ki),1028);
+//! assert_eq!(suffix::metric!(1),1);
+//! assert_eq!(suffix::bin!(1K),1028);
+//! assert_eq!(suffix::deci!(1Ki),1000);
+//! ```
 
+use proc_macro::TokenStream;
 use syn::parse_macro_input;
 use quote::quote;
 

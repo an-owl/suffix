@@ -1,0 +1,18 @@
+[package]
+name = "suffix"
+version = "0.0.0"
+authors = ["an_owl <32559552+an-owl@users.noreply.github.com>"]
+description = "A `cargo generate` template for quick-starting a procedural macro crate"
+keywords = ["template", "proc_macro", "procmacro"]
+edition = "2018"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+quote = "1.0.40"
+proc-macro2 = "1.0.94"
+syn = "2.0.100"
+
+[dev-dependencies]
+trybuild = "1.0.104"

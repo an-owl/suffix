@@ -1,0 +1,7 @@
+error: invalid suffix `ki` for number literal
+ --> tests/fail/lowcase_suffix.rs:8:29
+  |
+8 |     let _ = suffix::metric!(1ki);
+  |                             ^^^ invalid suffix `ki`
+  |
+  = help: the suffix must be one of the numeric types (`u32`, `isize`, `f32`, etc.)

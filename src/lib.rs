@@ -183,6 +183,13 @@ mod test {
     }
 
     #[test]
+    fn no_mod() {
+        let parsed: super::SuffixParser = syn::parse2(quote! {1}).unwrap();
+        let int: syn::LitInt = syn::parse2(quote!{#parsed}).unwrap();
+        assert_eq!(int.base10_parse::<u32>().unwrap(),1);
+    }
+
+    #[test]
     fn try_build() {
         let t = trybuild::TestCases::new();
         t.compile_fail("tests/fail/*.rs");

@@ -11,9 +11,9 @@
 //! extern crate suffix;
 //!
 //! assert_eq!(suffix::metric!(1K),1000);
-//! assert_eq!(suffix::metric!(1Ki),1028);
+//! assert_eq!(suffix::metric!(1Ki),1024);
 //! assert_eq!(suffix::metric!(1),1);
-//! assert_eq!(suffix::bin!(1K),1028);
+//! assert_eq!(suffix::bin!(1K),1024);
 //! assert_eq!(suffix::deci!(1Ki),1000);
 //! ```
 
@@ -162,7 +162,7 @@ impl Suffix {
 #[repr(u32)]
 #[derive(Copy, Clone, Debug)]
 enum SuffixStyle {
-    Binary = 1028,
+    Binary = 1024,
     Decimal = 1000,
 }
 
@@ -175,6 +175,7 @@ mod test {
     fn quantum_multiplier_correct() {
         assert_eq!(Quantum{suffix: super::Suffix::Kilo, style: super::SuffixStyle::Decimal}.multiplier(),1000);
         assert_eq!(Quantum{suffix: super::Suffix::Exa, style: super::SuffixStyle::Decimal}.multiplier(),1000000000000000000);
+        assert_eq!(Quantum{suffix: super::Suffix::Kilo, style: super::SuffixStyle::Binary}.multiplier(),1024);
     }
 
     #[test]
@@ -182,7 +183,7 @@ mod test {
         let parsed: super::SuffixParser = syn::parse2(quote! {1Ki}).unwrap();
 
         assert_eq!(parsed.int.base10_parse::<u128>().unwrap(),1);
-        assert_eq!(parsed.quantum.as_ref().unwrap().multiplier(),1028);
+        assert_eq!(parsed.quantum.as_ref().unwrap().multiplier(),1024);
 
     }
 

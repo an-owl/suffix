@@ -68,8 +68,6 @@ impl quote::ToTokens for SuffixParser {
 
         let num = syn::LitInt::new(&format!("{}{}",num * multiplier,self.int.suffix()), self.int.span());
 
-        eprintln!("{}",quote! { #num }.to_string());
-
         tokens.extend(quote!{#num})
     }
 }
@@ -181,7 +179,7 @@ mod test {
         let parsed: super::SuffixParser = syn::parse2(quote! {1Q}).unwrap();
         let int: syn::LitInt = syn::parse2(quote!{#parsed}).unwrap();
         assert_eq!(int.base10_parse::<u128>().unwrap(),1000000000000000000000000000000);
-        eprintln!("{}",int.base10_parse::<u128>().unwrap());
+
     }
 
     #[test]
